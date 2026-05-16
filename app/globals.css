@@ -1,26 +1,81 @@
 @import "tailwindcss";
+@import "tailwindcss/utilities";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-gold: #D4AF37;
+  --color-gold-light: #F5E6B8;
+  --color-black: #0A0A0A;
+  --color-dark: #111111;
+  --color-beige: #F5F0E6;
+  --color-cream: #FAF7F2;
+  --color-gray: #2A2A2A;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-luxury-black: #0A0A0A;
+  --color-luxury-dark: #111111;
+  --color-luxury-gold: #D4AF37;
+  --color-luxury-gold-light: #F5E6B8;
+  --color-luxury-beige: #F5F0E6;
+  --color-luxury-cream: #FAF7F2;
+  --color-luxury-gray: #2A2A2A;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --font-family-display: "Playfair Display", serif;
+  --font-family-body: "Inter", sans-serif;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-glow: glow 2s ease-in-out infinite alternate;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  @keyframes glow {
+    0% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+    100% { text-shadow: 0 0 20px rgba(212, 175, 55, 0.8); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility glassmorphism {
+  backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.3);
+}
+@utility glass-card {
+  @apply glassmorphism rounded-2xl p-6 transition-all duration-500;
+}
+@utility gold-gradient {
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 50%, var(--color-gold) 100%);
+}
+@utility text-gradient {
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility premium-button {
+  @apply px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95;
+}
+@utility button-primary {
+  @apply premium-button gold-gradient text-black;
+  &:hover {
+    box-shadow: 0 10px 15px -3px rgb(212 175 55 / 0.3), 0 4px 6px -4px rgb(212 175 55 / 0.3);
+  }
+}
+@utility button-secondary {
+  @apply premium-button border-2 border-gold text-gold hover:bg-gold/10;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-black);
+    color: white;
+    font-family: var(--font-family-body);
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-display);
+  }
 }
