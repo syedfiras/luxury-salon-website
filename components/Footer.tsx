@@ -9,7 +9,7 @@ const Footer = () => {
   }
 
   return (
-    <footer className="bg-luxury-dark border-t border-white/5 pt-16 pb-8 px-6 relative overflow-hidden">
+    <footer className="bg-luxury-dark border-t border-white/5 pt-12 sm:pt-16 pb-8 px-4 sm:px-6 relative overflow-hidden">
       {/* Decorative Line */}
       <div className="absolute top-0 left-0 right-0 h-[1px] gold-gradient opacity-30" />
 
@@ -106,13 +106,13 @@ const Footer = () => {
             <p className="text-gray-500 text-sm mb-4">
               Subscribe for exclusive offers, beauty tips, and VIP invitations.
             </p>
-            <div className="flex">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-0">
               <input
                 type="email"
                 placeholder="Your email"
-                className="flex-1 px-4 py-3 bg-luxury-black border border-white/10 rounded-l-lg focus:border-gold focus:outline-none text-sm text-white placeholder-gray-500 transition-colors"
+                className="flex-1 px-4 py-3 bg-luxury-black border border-white/10 rounded-lg sm:rounded-l-lg sm:rounded-r-none focus:border-gold focus:outline-none text-sm text-white placeholder-gray-500 transition-colors"
               />
-              <button className="gold-gradient text-luxury-black px-5 py-3 rounded-r-lg font-semibold text-sm hover:opacity-90 transition-opacity shrink-0">
+              <button className="gold-gradient text-luxury-black px-5 py-3 rounded-lg sm:rounded-l-none sm:rounded-r-lg font-semibold text-sm hover:opacity-90 transition-opacity shrink-0">
                 Subscribe
               </button>
             </div>

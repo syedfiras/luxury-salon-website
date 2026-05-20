@@ -86,7 +86,7 @@ const Hero = () => {
     <section
       id="home"
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden"
     >
       {/* Parallax Background */}
       <motion.div
@@ -102,8 +102,8 @@ const Hero = () => {
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/60 to-transparent z-[1]" />
 
       {/* Ambient Light Effects */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gold/5 rounded-full blur-[120px] z-[1]" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gold/3 rounded-full blur-[100px] z-[1]" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[800px] sm:h-[800px] bg-gold/5 rounded-full blur-[80px] sm:blur-[120px] z-[1]" />
+      <div className="absolute bottom-0 right-0 w-[280px] h-[280px] sm:w-[600px] sm:h-[600px] bg-gold/3 rounded-full blur-[70px] sm:blur-[100px] z-[1]" />
 
       {/* Floating Particles */}
       <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
@@ -132,16 +132,16 @@ const Hero = () => {
       {/* Main Content */}
       <motion.div
         style={{ x: mousePos.x, y: mousePos.y }}
-        className="relative z-10 text-center px-6 max-w-7xl mx-auto"
+        className="relative z-10 text-center px-4 sm:px-6 max-w-7xl mx-auto"
       >
         <motion.div className="mb-6">
-          <span className="hero-subtitle inline-block text-gold text-sm tracking-[0.4em] uppercase font-body">
+          <span className="hero-subtitle inline-block text-gold text-xs sm:text-sm tracking-[0.24em] sm:tracking-[0.4em] uppercase font-body">
             Welcome to Excellence
           </span>
         </motion.div>
 
         <div ref={textRef} className="overflow-hidden mb-6">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[1.1]">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[1.08]">
             <div className="hero-title-line overflow-hidden">
               <span className="inline-block text-white">Redefine Beauty.</span>
             </div>
@@ -151,15 +151,15 @@ const Hero = () => {
           </h1>
         </div>
 
-        <p className="hero-desc text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-body leading-relaxed">
+        <p className="hero-desc text-gray-300 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 sm:mb-12 font-body leading-relaxed">
           Where artistry meets elegance. Experience world-class beauty treatments
           in an atmosphere of pure sophistication.
         </p>
 
-        <div className="hero-cta flex flex-col sm:flex-row gap-6 justify-center">
+        <div className="hero-cta flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
           <button
             onClick={() => scrollToSection('booking')}
-            className="button-primary group flex items-center gap-2"
+            className="button-primary group flex items-center justify-center gap-2"
           >
             <span>Book Appointment</span>
             <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -168,7 +168,7 @@ const Hero = () => {
           </button>
           <button
             onClick={() => scrollToSection('services')}
-            className="button-secondary group flex items-center gap-2"
+            className="button-secondary group flex items-center justify-center gap-2"
           >
             <span>Explore Services</span>
             <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -183,7 +183,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
-        className="hero-scroll absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 cursor-pointer"
+        className="hero-scroll absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2 z-10 cursor-pointer"
         onClick={() => scrollToSection('about')}
       >
         <motion.div

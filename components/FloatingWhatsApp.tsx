@@ -24,7 +24,7 @@ const FloatingWhatsApp = () => {
   return (
     <AnimatePresence>
       {isVisible && (
-        <div className="fixed bottom-8 left-8 z-50 flex flex-col gap-3">
+        <div className="fixed bottom-8 left-8 z-50 hidden md:flex flex-col gap-3">
           {/* WhatsApp Button */}
           <motion.button
             initial={{ opacity: 0, x: -50 }}

@@ -47,9 +47,9 @@ const Testimonials = () => {
   const goTo = (idx: number) => setCurrent(idx)
 
   return (
-    <section className="py-24 px-6 bg-gradient-luxury relative overflow-hidden">
+    <section className="py-16 md:py-24 px-4 sm:px-6 bg-gradient-luxury relative overflow-hidden">
       {/* Background Decor */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[120px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] sm:w-[600px] sm:h-[600px] bg-gold/5 rounded-full blur-[80px] sm:blur-[120px]" />
 
       <div className="container mx-auto max-w-5xl relative z-10">
         <motion.div
@@ -72,7 +72,7 @@ const Testimonials = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
-              className="glass-card text-center p-10 md:p-16 relative"
+              className="glass-card text-center p-6 sm:p-10 md:p-16 relative"
             >
               {/* Decorative Quote */}
               <div className="absolute top-6 left-6 text-6xl text-gold/20 font-display leading-none">
@@ -111,7 +111,7 @@ const Testimonials = () => {
                 ))}
               </div>
 
-              <p className="text-gray-200 text-lg md:text-xl italic mb-8 leading-relaxed max-w-3xl mx-auto">
+              <p className="text-gray-200 text-base sm:text-lg md:text-xl italic mb-8 leading-relaxed max-w-3xl mx-auto">
                 &ldquo;{testimonials[current].text}&rdquo;
               </p>
 

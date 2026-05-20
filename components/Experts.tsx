@@ -46,7 +46,7 @@ const Experts = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
   return (
-    <section id="experts" className="py-24 px-6 bg-gradient-luxury relative overflow-hidden">
+    <section id="experts" className="py-16 md:py-24 px-4 sm:px-6 bg-gradient-luxury relative overflow-hidden">
       {/* Background Ornaments */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-gold/5 rounded-full blur-[80px]" />
       <div className="absolute bottom-0 left-0 w-48 h-48 bg-gold/3 rounded-full blur-[60px]" />
@@ -82,7 +82,7 @@ const Experts = () => {
 
               <div className="relative glassmorphism rounded-2xl overflow-hidden bg-luxury-dark/80 backdrop-blur-sm">
                 {/* Image Container */}
-                <div className="relative h-80 overflow-hidden">
+                <div className="relative h-72 sm:h-80 overflow-hidden">
                   <img
                     src={expert.image}
                     alt={expert.name}

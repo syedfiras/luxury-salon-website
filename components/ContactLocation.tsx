@@ -9,7 +9,7 @@ const ContactLocation = () => {
   }
 
   return (
-    <section id="contact" className="py-24 px-6 bg-luxury-black relative overflow-hidden">
+    <section id="contact" className="py-16 md:py-24 px-4 sm:px-6 bg-luxury-black relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-1/4 right-0 w-72 h-72 bg-gold/5 rounded-full blur-[80px]" />
       <div className="absolute bottom-1/4 left-0 w-48 h-48 bg-gold/3 rounded-full blur-[60px]" />
@@ -33,7 +33,7 @@ const ContactLocation = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="glass-card p-8 md:p-10"
+            className="glass-card md:p-10"
           >
             <h3 className="text-2xl font-display mb-6 text-gold">Location & Hours</h3>
 
@@ -78,15 +78,15 @@ const ContactLocation = () => {
               <div className="border-t border-white/10 pt-6">
                 <h4 className="font-semibold mb-4 text-gold">Opening Hours</h4>
                 <div className="space-y-2 text-sm">
-                  <div className="flex justify-between text-gray-300">
+                  <div className="flex flex-col sm:flex-row sm:justify-between gap-1 text-gray-300">
                     <span>Monday - Friday</span>
                     <span className="text-gold">9am - 8pm</span>
                   </div>
-                  <div className="flex justify-between text-gray-300">
+                  <div className="flex flex-col sm:flex-row sm:justify-between gap-1 text-gray-300">
                     <span>Saturday</span>
                     <span className="text-gold">10am - 6pm</span>
                   </div>
-                  <div className="flex justify-between text-gray-300">
+                  <div className="flex flex-col sm:flex-row sm:justify-between gap-1 text-gray-300">
                     <span>Sunday</span>
                     <span className="text-gold">11am - 5pm</span>
                   </div>
@@ -107,7 +107,7 @@ const ContactLocation = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="rounded-2xl overflow-hidden h-96 relative group"
+            className="rounded-2xl overflow-hidden h-80 md:h-96 relative group"
           >
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.966215614455!2d-74.00448488459497!3d40.75513057932724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6d3c2b9%3A0x3f0b5b8b5b8b5b8b!2sFifth%20Avenue!5e0!3m2!1sen!2sus!4v1699999999999!5m2!1sen!2sus"

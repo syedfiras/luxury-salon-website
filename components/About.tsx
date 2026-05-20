@@ -17,7 +17,7 @@ const About = () => {
   })
 
   return (
-    <section id="about" className="py-24 px-6 bg-gradient-luxury relative overflow-hidden">
+    <section id="about" className="py-16 md:py-24 px-4 sm:px-6 bg-gradient-luxury relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-gold/5 rounded-full blur-[100px]" />
       <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-gold/3 rounded-full blur-[80px]" />
@@ -42,7 +42,7 @@ const About = () => {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="glass-card p-8 md:p-10">
+            <div className="glass-card md:p-10">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-[2px] gold-gradient" />
                 <span className="text-gold text-sm tracking-wider uppercase">Since 2015</span>
@@ -113,7 +113,7 @@ const About = () => {
               <img
                 src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80"
                 alt="Luxury Salon Interior"
-                className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-[340px] sm:h-[420px] md:h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-luxury-black/80 via-transparent to-transparent" />
 

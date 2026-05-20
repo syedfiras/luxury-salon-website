@@ -74,9 +74,9 @@ const Gallery = () => {
   }
 
   return (
-    <section id="gallery" className="py-24 px-6 bg-luxury-black relative">
+    <section id="gallery" className="py-16 md:py-24 px-4 sm:px-6 bg-luxury-black relative">
       {/* Ambient Background */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold/3 rounded-full blur-[100px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] sm:w-[600px] sm:h-[600px] bg-gold/3 rounded-full blur-[80px] sm:blur-[100px]" />
 
       <div className="container mx-auto max-w-7xl relative z-10">
         <motion.div
@@ -106,7 +106,7 @@ const Gallery = () => {
               className={`${img.span} ${idx === 4 || idx === 6 || idx === 7 ? 'hidden lg:block' : idx === 5 ? 'hidden sm:block' : ''} group cursor-pointer`}
               onClick={() => openPreview(idx)}
             >
-              <div className="relative overflow-hidden rounded-2xl h-full min-h-[280px]">
+              <div className="relative overflow-hidden rounded-2xl h-full min-h-[240px] sm:min-h-[280px]">
                 <motion.img
                   src={img.url}
                   alt={img.title}
@@ -151,7 +151,7 @@ const Gallery = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center px-4"
+            className="fixed inset-0 z-[100] flex items-center justify-center px-3 sm:px-4"
             onClick={closePreview}
           >
             <div className="absolute inset-0 bg-black/95 backdrop-blur-xl" />
@@ -159,7 +159,7 @@ const Gallery = () => {
             {/* Close Button */}
             <button
               onClick={closePreview}
-              className="absolute top-6 right-6 z-10 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all group"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all group"
             >
               <svg className="w-6 h-6 text-white group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -167,7 +167,7 @@ const Gallery = () => {
             </button>
 
             {/* Counter */}
-            <div className="absolute top-6 left-6 z-10 text-gold text-sm tracking-wider">
+            <div className="absolute top-5 left-4 sm:top-6 sm:left-6 z-10 text-gold text-sm tracking-wider">
               {selected + 1} / {galleryImages.length}
             </div>
 
@@ -175,7 +175,7 @@ const Gallery = () => {
             {selected > 0 && (
               <button
                 onClick={(e) => { e.stopPropagation(); goPrev() }}
-                className="absolute left-6 z-10 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all"
+                className="absolute left-3 sm:left-6 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all"
               >
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -185,7 +185,7 @@ const Gallery = () => {
             {selected < galleryImages.length - 1 && (
               <button
                 onClick={(e) => { e.stopPropagation(); goNext() }}
-                className="absolute right-6 z-10 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all"
+                className="absolute right-3 sm:right-6 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all"
               >
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -206,7 +206,7 @@ const Gallery = () => {
               <img
                 src={galleryImages[selected].url}
                 alt={galleryImages[selected].title}
-                className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
+                className="max-w-full max-h-full object-contain rounded-xl sm:rounded-2xl shadow-2xl"
               />
 
               {/* Caption */}
@@ -214,7 +214,7 @@ const Gallery = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="absolute bottom-0 left-0 right-0 p-8 text-center bg-gradient-to-t from-black/80 to-transparent"
+                className="absolute bottom-0 left-0 right-0 p-4 sm:p-8 text-center bg-gradient-to-t from-black/80 to-transparent"
               >
                 <h3 className="text-2xl md:text-3xl font-display text-gold mb-1">
                   {galleryImages[selected].title}

@@ -33,9 +33,9 @@ const Pricing = () => {
   }
 
   return (
-    <section className="py-24 px-6 bg-gradient-luxury relative overflow-hidden">
+    <section className="py-16 md:py-24 px-4 sm:px-6 bg-gradient-luxury relative overflow-hidden">
       {/* Decorative Background */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gold/3 rounded-full blur-[150px]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[320px] h-[320px] sm:w-[800px] sm:h-[800px] bg-gold/3 rounded-full blur-[90px] sm:blur-[150px]" />
 
       <div className="container mx-auto max-w-7xl relative z-10">
         <motion.div
@@ -76,7 +76,7 @@ const Pricing = () => {
               {/* Card Header */}
               <div className="mb-6 pt-4">
                 <h3 className="text-2xl font-display mb-4">{plan.name}</h3>
-                <div className="text-5xl font-bold text-gold mb-2">
+                <div className="text-4xl sm:text-5xl font-bold text-gold mb-2">
                   {plan.price}
                   <span className="text-sm text-gray-400 font-body ml-1">/service</span>
                 </div>

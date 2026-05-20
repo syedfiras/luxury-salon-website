@@ -46,7 +46,7 @@ const ScrollToTop = () => {
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.3 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 group"
+          className="fixed bottom-8 right-8 z-50 hidden md:block group"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >

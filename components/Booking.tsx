@@ -48,17 +48,17 @@ const Booking = () => {
 
     return (
         <>
-            <section id="booking" className="py-24 px-6 bg-gradient-luxury">
+            <section id="booking" className="py-16 md:py-24 px-4 sm:px-6 bg-gradient-luxury">
                 <div className="container mx-auto max-w-6xl">
                     <motion.div
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                         viewport={{ once: true }}
-                        className="text-center mb-16"
+                        className="text-center mb-10 md:mb-16"
                     >
-                        <span className="text-gold text-sm tracking-[0.3em] uppercase">Reserve Your Experience</span>
-                        <h2 className="text-4xl md:text-5xl font-display mt-4 mb-6">Book Appointment</h2>
+                        <span className="text-gold text-xs sm:text-sm tracking-[0.22em] sm:tracking-[0.3em] uppercase">Reserve Your Experience</span>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-display mt-3 md:mt-4 mb-4 md:mb-6">Book Appointment</h2>
                         <div className="w-20 h-0.5 gold-gradient mx-auto"></div>
                     </motion.div>
 
@@ -67,7 +67,7 @@ const Booking = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                         viewport={{ once: true }}
-                        className="glass-card p-8 md:p-12"
+                        className="glass-card md:p-12"
                     >
                         <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-8">
                             <div className="space-y-6">
@@ -129,6 +129,7 @@ const Booking = () => {
                                 <div>
                                     <label className="block text-gold mb-2 text-sm">Preferred Date *</label>
                                     <DatePicker
+                                        wrapperClassName="w-full"
                                         selected={selectedDate}
                                         onChange={(date: Date | null) => setSelectedDate(date)}
                                         className="w-full px-4 py-3 bg-luxury-black/50 border border-white/10 rounded-lg focus:border-gold focus:outline-none transition-colors text-white"
@@ -154,7 +155,7 @@ const Booking = () => {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     type="submit"
-                                    className="w-full button-primary py-4 text-lg"
+                                    className="w-full button-primary py-4 text-base sm:text-lg"
                                 >
                                     Confirm Appointment
                                 </motion.button>
@@ -178,7 +179,7 @@ const Booking = () => {
                             initial={{ scale: 0.9, opacity: 0, y: 20 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                            className="relative glass-card max-w-md w-full p-8 text-center z-10"
+                            className="relative glass-card max-w-md w-full p-6 sm:p-8 text-center z-10"
                         >
                             {/* Animated Success Icon */}
                             <motion.div
@@ -204,19 +205,19 @@ const Booking = () => {
                             <p className="text-gray-300 mb-6">Your appointment has been successfully scheduled.</p>
 
                             <div className="text-left space-y-3 mb-6 p-4 bg-white/5 rounded-lg">
-                                <div className="flex justify-between items-center">
+                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1">
                                     <span className="text-gold text-sm">Guest:</span>
                                     <p className="text-white font-semibold">{bookingData.name}</p>
                                 </div>
-                                <div className="flex justify-between items-center">
+                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1">
                                     <span className="text-gold text-sm">Service:</span>
                                     <p className="text-white font-semibold">{bookingData.service}</p>
                                 </div>
-                                <div className="flex justify-between items-center">
+                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1">
                                     <span className="text-gold text-sm">Date:</span>
                                     <p className="text-white font-semibold">{bookingData.date}</p>
                                 </div>
-                                <div className="flex justify-between items-center">
+                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1">
                                     <span className="text-gold text-sm">Confirmation sent to:</span>
                                     <p className="text-white font-semibold text-sm">{bookingData.email}</p>
                                 </div>
