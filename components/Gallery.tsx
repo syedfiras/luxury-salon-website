@@ -106,9 +106,9 @@ const Gallery = () => {
   }, [selected])
 
   return (
-    <section id="gallery" className="section-padding bg-luxury-black relative">
-      {/* Ambient Background */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] sm:w-[600px] sm:h-[600px] bg-gold/3 rounded-full blur-[80px] sm:blur-[100px]" />
+    <section id="gallery" className="section-padding bg-atelier-black relative">
+      <div className="ambient-boundary" />
+      <div className="ambient-floor" />
 
       <div className="container mx-auto max-w-7xl relative z-10">
         <motion.div
@@ -116,7 +116,7 @@ const Gallery = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="section-header"
+          className="section-header section-header-centered"
         >
           <span className="section-tag">Portfolio</span>
           <h2 className="section-title">Seen in the Studio</h2>

@@ -75,7 +75,7 @@ const Navbar = () => {
         transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
         aria-label="Primary navigation"
         className={`fixed w-full z-50 transition-all duration-500 ${
-          scrolled ? 'bg-luxury-black/88 backdrop-blur-md py-3 border-b border-white/5' : 'bg-transparent py-5'
+          scrolled ? 'bg-[#0b0908]/82 backdrop-blur-sm py-3 border-b border-white/[0.04]' : 'bg-transparent py-5'
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 flex justify-between items-center">
@@ -153,7 +153,7 @@ const Navbar = () => {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="md:hidden overflow-hidden bg-luxury-black/96 backdrop-blur-md border-t border-white/5"
+              className="md:hidden overflow-hidden bg-[#0b0908]/96 backdrop-blur-sm border-t border-white/[0.04]"
             >
               <div className="flex flex-col space-y-1 px-4 py-5">
                 {navLinks.map((link, idx) => (

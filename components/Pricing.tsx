@@ -34,9 +34,9 @@ const Pricing = () => {
   }
 
   return (
-    <section className="section-padding bg-gradient-luxury relative overflow-hidden">
-      {/* Decorative Background */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[320px] h-[320px] sm:w-[800px] sm:h-[800px] bg-gold/3 rounded-full blur-[90px] sm:blur-[150px]" />
+    <section className="section-padding bg-atelier-charcoal relative overflow-hidden">
+      <div className="ambient-boundary" />
+      <div className="ambient-floor" />
 
       <div className="container mx-auto max-w-7xl relative z-10">
         <motion.div
@@ -44,7 +44,7 @@ const Pricing = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="section-header"
+          className="section-header section-header-centered"
         >
           <span className="section-tag">Starting Points</span>
           <h2 className="section-title">Service Guides</h2>

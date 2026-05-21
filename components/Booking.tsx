@@ -85,14 +85,17 @@ const Booking = () => {
 
     return (
         <>
-            <section id="booking" className="section-padding bg-gradient-luxury">
-                <div className="container mx-auto max-w-6xl">
+            <section id="booking" className="section-padding bg-atelier-black relative overflow-hidden">
+                <div className="ambient-boundary" />
+                <div className="ambient-floor" />
+
+                <div className="container mx-auto max-w-6xl relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                         viewport={{ once: true }}
-                        className="section-header"
+                        className="section-header section-header-centered"
                     >
                         <span className="section-tag">Appointments</span>
                         <h2 className="section-title">Reserve a Visit</h2>

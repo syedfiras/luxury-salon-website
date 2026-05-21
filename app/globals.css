@@ -7,7 +7,9 @@
     scroll-behavior: smooth;
   }
   body {
-    background-color: #0A0A0A;
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.34), transparent 18%, transparent 82%, rgba(0, 0, 0, 0.38)),
+      linear-gradient(180deg, #100d0a 0%, #080807 44%, #0d0b09 100%);
     color: white;
     overflow-x: hidden;
   }
@@ -50,13 +52,13 @@
 
 @layer components {
   .glassmorphism {
-    backdrop-filter: blur(12px);
-    background-color: rgba(255, 255, 255, 0.035);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 14px 28px -18px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(10px);
+    background-color: rgba(18, 16, 13, 0.58);
+    border: 1px solid rgba(245, 230, 184, 0.075);
+    box-shadow: 0 18px 44px -32px rgba(0, 0, 0, 0.78);
   }
   .glass-card {
-    @apply glassmorphism rounded-xl p-5 sm:p-6 transition-all duration-300;
+    @apply glassmorphism rounded-lg p-5 sm:p-6 transition-all duration-300;
   }
   .gold-gradient {
     background: linear-gradient(135deg, #D4AF37 0%, #F5E6B8 50%, #D4AF37 100%);
@@ -86,22 +88,22 @@
     box-shadow: 0 10px 20px -12px rgba(212, 175, 55, 0.55);
   }
   .button-secondary {
-    @apply premium-button border border-luxury-gold/70 text-luxury-gold hover:bg-luxury-gold hover:bg-opacity-10;
+    @apply premium-button border border-luxury-gold/45 text-luxury-gold hover:bg-luxury-gold hover:bg-opacity-[0.07];
   }
   .section-header {
-    @apply text-center mb-10 md:mb-14 lg:mb-16;
+    @apply mb-10 text-left md:mb-14 lg:mb-16;
   }
   .section-tag {
-    @apply text-luxury-gold text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.28em] uppercase;
+    @apply text-luxury-gold/90 text-xs sm:text-sm tracking-[0.18em] sm:tracking-[0.24em] uppercase;
     font-family: 'Inter', sans-serif;
   }
   .section-title {
-    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-3 md:mt-4 mb-4 md:mb-5 leading-[1.08];
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-3 md:mt-4 mb-4 md:mb-5 leading-[1.05] max-w-4xl;
     font-family: 'Playfair Display', serif;
   }
   .section-divider {
-    @apply w-20 h-0.5 mx-auto;
-    background: linear-gradient(135deg, #D4AF37 0%, #F5E6B8 50%, #D4AF37 100%);
+    @apply h-px w-16;
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.86), rgba(245, 230, 184, 0.16));
   }
   .parallax-slow {
     transform: translateZ(-1px) scale(1.5);
@@ -115,16 +117,65 @@
     animation: shimmer 2s linear infinite;
   }
   .section-padding {
-    @apply py-14 sm:py-16 md:py-24 lg:py-28 px-4 sm:px-6;
+    @apply py-16 sm:py-20 md:py-24 lg:py-32 px-4 sm:px-6;
   }
   .section-copy {
-    @apply text-gray-400 max-w-2xl mx-auto mt-4 leading-7;
+    @apply text-gray-400 max-w-2xl mt-4 leading-7 sm:leading-8;
   }
   .premium-hover {
     @apply transition-transform duration-300 ease-out motion-safe:hover:-translate-y-1;
   }
   .premium-media {
     @apply transition-transform duration-500 ease-out group-hover:scale-[1.03];
+  }
+}
+
+@layer utilities {
+  .bg-atelier-black {
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.28), transparent 20%, transparent 78%, rgba(0, 0, 0, 0.34)),
+      linear-gradient(180deg, rgba(37, 30, 22, 0.42) 0%, rgba(11, 10, 9, 0.98) 38%, #0d0b09 100%);
+  }
+  .bg-atelier-charcoal {
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.24), transparent 16%, transparent 84%, rgba(0, 0, 0, 0.32)),
+      linear-gradient(180deg, #17130f 0%, #0f0d0b 50%, #090807 100%);
+  }
+  .bg-atelier-quiet {
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.3), transparent 22%, transparent 80%, rgba(0, 0, 0, 0.34)),
+      linear-gradient(180deg, #0a0908 0%, #11100d 46%, #0a0908 100%);
+  }
+  .ambient-boundary {
+    @apply pointer-events-none absolute inset-x-0 top-0 h-24;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.26), transparent);
+  }
+  .ambient-floor {
+    @apply pointer-events-none absolute inset-x-0 bottom-0 h-28;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.24), transparent);
+  }
+  .section-header-centered {
+    @apply text-center;
+  }
+  .section-header-centered .section-title,
+  .section-header-centered .section-copy {
+    @apply mx-auto;
+  }
+  .section-header-centered .section-divider {
+    @apply mx-auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .section-padding {
+    padding-top: 4.75rem;
+    padding-bottom: 4.75rem;
+  }
+  .section-title {
+    line-height: 1.1;
+  }
+  .section-copy {
+    max-width: 32rem;
   }
 }
 

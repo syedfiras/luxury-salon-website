@@ -27,8 +27,9 @@ const Services = () => {
   }
 
   return (
-    <section id="services" className="section-padding bg-luxury-black relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[280px] h-[280px] sm:w-[500px] sm:h-[500px] bg-gold/3 rounded-full blur-[80px] sm:blur-[100px]" />
+    <section id="services" className="section-padding bg-atelier-quiet relative overflow-hidden">
+      <div className="ambient-boundary" />
+      <div className="ambient-floor" />
 
       <div className="container mx-auto max-w-7xl relative z-10">
         <motion.div
@@ -54,9 +55,9 @@ const Services = () => {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.08, ease: [0.25, 0.4, 0.25, 1] }}
               whileHover={{ y: -4, transition: { duration: 0.3 } }}
-              className="glass-card text-center group relative overflow-hidden"
+              className="glass-card group relative overflow-hidden text-left"
             >
-              <div className="relative w-full h-48 mb-4 overflow-hidden rounded-xl">
+              <div className="relative mb-5 h-52 w-full overflow-hidden rounded-lg sm:h-48">
                 <Image
                   src={service.image}
                   alt={service.name}
@@ -64,10 +65,10 @@ const Services = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   className="object-cover premium-media"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <h3 className="text-xl font-display mb-2 text-gold relative z-10">{service.name}</h3>
-              <p className="text-gray-400 text-sm mb-3 relative z-10">{service.desc}</p>
+              <p className="text-gray-400 text-sm leading-6 mb-3 relative z-10">{service.desc}</p>
               <p className="text-gold-light font-semibold relative z-10">{service.price}</p>
               <button
                 type="button"

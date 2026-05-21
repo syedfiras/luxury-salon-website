@@ -37,6 +37,7 @@ const testimonials = [
 
 const Testimonials = () => {
   const [current, setCurrent] = useState(0)
+  const activeTestimonial = testimonials[current]
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -48,24 +49,27 @@ const Testimonials = () => {
   const goTo = (idx: number) => setCurrent(idx)
 
   return (
-    <section className="section-padding bg-gradient-luxury relative overflow-hidden">
-      {/* Background Decor */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] sm:w-[600px] sm:h-[600px] bg-gold/5 rounded-full blur-[80px] sm:blur-[120px]" />
+    <section className="section-padding bg-atelier-charcoal relative overflow-hidden">
+      <div className="ambient-boundary" />
+      <div className="ambient-floor" />
 
-      <div className="container mx-auto max-w-5xl relative z-10">
+      <div className="container mx-auto max-w-6xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="section-header"
+          className="section-header max-w-3xl"
         >
           <span className="section-tag">Client Stories</span>
           <h2 className="section-title">What Clients Notice</h2>
+          <p className="section-copy">
+            Small details, remembered over time. The measure of the studio is how people feel when they leave, and how the work lives after the appointment.
+          </p>
           <div className="section-divider" />
         </motion.div>
 
-        <div className="relative">
+        <div className="relative max-w-4xl">
           <AnimatePresence mode="wait">
             <motion.div
               key={current}
@@ -73,86 +77,67 @@ const Testimonials = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
-              className="glass-card text-center p-6 sm:p-10 md:p-16 relative"
+              className="relative rounded-lg border border-white/[0.07] bg-black/[0.12] p-6 shadow-[0_24px_60px_-48px_rgba(0,0,0,0.85)] sm:p-8 md:p-9"
             >
-              {/* Decorative Quote */}
-              <div className="absolute top-6 left-6 text-6xl text-gold/20 font-display leading-none">
-                &ldquo;
-              </div>
-              <div className="absolute bottom-6 right-6 text-6xl text-gold/20 font-display leading-none">
-                &rdquo;
-              </div>
-
-              <div className="flex justify-center mb-6">
-                <div className="relative">
+              <div className="mb-5 flex items-center gap-4 sm:mb-6 sm:gap-5">
+                <div className="relative shrink-0">
                   <Image
-                    src={testimonials[current].image}
-                    alt={testimonials[current].name}
-                    width={80}
-                    height={80}
-                    sizes="80px"
-                    className="w-20 h-20 rounded-full object-cover border-2 border-gold"
+                    src={activeTestimonial.image}
+                    alt={activeTestimonial.name}
+                    width={72}
+                    height={72}
+                    sizes="72px"
+                    className="h-16 w-16 rounded-full border border-gold/30 object-cover grayscale-[20%] sm:h-[72px] sm:w-[72px]"
                   />
-                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-gold rounded-full flex items-center justify-center">
-                    <svg className="w-3 h-3 text-luxury-black" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  </div>
+                </div>
+                <div>
+                  <h4 className="font-display text-xl text-gold sm:text-2xl">{activeTestimonial.name}</h4>
+                  <p className="mt-1 text-sm text-gray-500">{activeTestimonial.role}</p>
                 </div>
               </div>
 
-              <div className="flex justify-center gap-1 mb-6" aria-label={`${testimonials[current].rating} out of 5 stars`}>
-                {[...Array(testimonials[current].rating)].map((_, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="text-gold text-xl"
-                    aria-hidden="true"
-                  >
-                    &#9733;
-                  </motion.span>
-                ))}
-              </div>
-
-              <p className="text-gray-200 text-base sm:text-lg md:text-xl italic mb-8 leading-relaxed max-w-3xl mx-auto">
-                &ldquo;{testimonials[current].text}&rdquo;
+              <p className="max-w-3xl text-left font-display text-lg leading-[1.45] text-gray-100 sm:text-xl md:text-2xl md:leading-[1.38]">
+                <span className="text-gold/50">&ldquo;</span>{activeTestimonial.text}<span className="text-gold/50">&rdquo;</span>
               </p>
 
-              <h4 className="text-2xl font-display text-gold">{testimonials[current].name}</h4>
-              <p className="text-sm text-gray-400 mt-1">{testimonials[current].role}</p>
+              <div className="mt-5 flex gap-1.5" aria-label={`${activeTestimonial.rating} out of 5 stars`}>
+                {[...Array(activeTestimonial.rating)].map((_, i) => (
+                  <span key={i} className="text-sm text-gold/70" aria-hidden="true">
+                    &#9733;
+                  </span>
+                ))}
+              </div>
             </motion.div>
           </AnimatePresence>
 
-          {/* Navigation Dots */}
-          <div className="flex justify-center gap-3 mt-10">
+          <div className="mt-7 flex justify-start gap-3">
             {testimonials.map((testimonial, idx) => (
               <button
                 key={testimonial.name}
                 onClick={() => goTo(idx)}
                 aria-label={`Show testimonial from ${testimonial.name}`}
                 aria-pressed={idx === current}
-                className={`transition-all duration-300 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${
+                className={`h-11 min-w-11 rounded-full transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${
                   idx === current
-                    ? 'w-10 h-2 bg-gold'
-                    : 'w-2 h-2 bg-gray-600 hover:bg-gray-500'
+                    ? 'border border-gold/60 bg-gold/10 px-4 text-xs text-gold'
+                    : 'border border-white/10 px-3 text-xs text-gray-500 hover:border-white/20 hover:text-gray-300'
                 }`}
-              />
+              >
+                {idx + 1}
+              </button>
             ))}
           </div>
 
-          {/* Trust Indicators */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-8 mt-12 pt-8 border-t border-white/5"
+            className="mt-8 grid grid-cols-2 gap-x-5 gap-y-3 border-t border-white/[0.06] pt-6 sm:flex sm:flex-wrap sm:gap-x-8"
           >
             {['Consultation-led', 'Established 2015', 'Senior-led services', 'Selected product partners'].map((indicator) => (
-              <div key={indicator} className="flex items-center gap-2 text-gray-500 text-sm">
-                <svg className="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
+              <div key={indicator} className="flex items-center gap-2 text-sm text-gray-500">
+                <svg className="h-3.5 w-3.5 shrink-0 text-gold/70" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
                 {indicator}

@@ -18,10 +18,9 @@ const About = () => {
   })
 
   return (
-    <section id="about" className="section-padding bg-gradient-luxury relative overflow-hidden">
-      {/* Decorative Elements */}
-      <div className="absolute top-1/4 left-0 w-96 h-96 bg-gold/5 rounded-full blur-[100px]" />
-      <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-gold/3 rounded-full blur-[80px]" />
+    <section id="about" className="section-padding bg-atelier-black relative overflow-hidden">
+      <div className="ambient-boundary" />
+      <div className="ambient-floor" />
 
       <div className="container mx-auto max-w-6xl relative z-10">
         <motion.div

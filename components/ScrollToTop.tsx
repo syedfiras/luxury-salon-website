@@ -49,12 +49,12 @@ const ScrollToTop = () => {
           transition={{ duration: 0.3 }}
           onClick={scrollToTop}
           aria-label="Back to top"
-          className="fixed bottom-5 right-5 sm:bottom-8 sm:right-8 z-50 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold rounded-full"
+          className="fixed bottom-5 right-4 z-50 rounded-full opacity-85 transition-opacity hover:opacity-100 sm:bottom-8 sm:right-8 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <div className="relative w-12 h-12 sm:w-14 sm:h-14">
-            <svg className="w-full h-full transform -rotate-90">
+          <div className="relative h-11 w-11 sm:h-14 sm:w-14">
+            <svg className="hidden h-full w-full -rotate-90 transform sm:block">
               <circle
                 cx="50%"
                 cy="50%"
@@ -77,9 +77,9 @@ const ScrollToTop = () => {
               />
             </svg>
 
-            <div className="absolute inset-1 rounded-full bg-luxury-dark/92 backdrop-blur-sm border border-gold/20 flex items-center justify-center shadow-lg transition-colors duration-300 group-hover:border-gold/45">
+            <div className="absolute inset-0 rounded-full border border-gold/15 bg-luxury-dark/88 shadow-[0_14px_34px_-24px_rgba(0,0,0,0.9)] backdrop-blur-sm transition-colors duration-300 group-hover:border-gold/35 sm:inset-1 flex items-center justify-center">
               <svg
-                className="w-5 h-5 text-gold"
+                className="h-4 w-4 text-gold/80 sm:h-5 sm:w-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

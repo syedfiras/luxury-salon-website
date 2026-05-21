@@ -10,10 +10,9 @@ const ContactLocation = () => {
   }
 
   return (
-    <section id="contact" className="section-padding bg-luxury-black relative overflow-hidden">
-      {/* Decorative Elements */}
-      <div className="absolute top-1/4 right-0 w-72 h-72 bg-gold/5 rounded-full blur-[80px]" />
-      <div className="absolute bottom-1/4 left-0 w-48 h-48 bg-gold/3 rounded-full blur-[60px]" />
+    <section id="contact" className="section-padding bg-atelier-quiet relative overflow-hidden">
+      <div className="ambient-boundary" />
+      <div className="ambient-floor" />
 
       <div className="container mx-auto max-w-6xl relative z-10">
         <motion.div
