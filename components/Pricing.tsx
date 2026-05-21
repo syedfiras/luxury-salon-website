@@ -2,24 +2,25 @@
 
 import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
+import { getScrollBehavior } from '@/lib/scroll'
 
 const pricingPlans = [
   {
-    name: 'Signature',
+    name: 'Essential',
     price: '$89',
-    features: ['Consultation', 'Hair Styling', 'Blowout', 'Premium Products'],
+    features: ['Short consultation', 'Cut or styling service', 'Finish and care notes', 'Selected professional products'],
     popular: false
   },
   {
-    name: 'Executive',
+    name: 'Signature',
     price: '$189',
-    features: ['Consultation', 'Hair Styling + Color', 'Deep Conditioning', 'Premium Products', 'Champagne Service'],
+    features: ['Extended consultation', 'Cut with color or treatment', 'Conditioning support', 'At-home care guidance', 'Refreshment service'],
     popular: true
   },
   {
-    name: 'Royal',
+    name: 'Atelier',
     price: '$389',
-    features: ['Full Service Package', 'Hair + Makeup + Nails', 'Spa Treatment', 'Premium Products', 'Private Suite', 'Complimentary Gifts'],
+    features: ['Multi-service appointment', 'Hair, makeup, nails, or body care', 'Private room on request', 'Timing plan', 'Take-home care edit'],
     popular: false
   },
 ]
@@ -29,11 +30,11 @@ const Pricing = () => {
 
   const scrollToBooking = () => {
     const section = document.getElementById('booking')
-    if (section) section.scrollIntoView({ behavior: 'smooth' })
+    if (section) section.scrollIntoView({ behavior: getScrollBehavior() })
   }
 
   return (
-    <section className="py-16 md:py-24 px-4 sm:px-6 bg-gradient-luxury relative overflow-hidden">
+    <section className="section-padding bg-gradient-luxury relative overflow-hidden">
       {/* Decorative Background */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[320px] h-[320px] sm:w-[800px] sm:h-[800px] bg-gold/3 rounded-full blur-[90px] sm:blur-[150px]" />
 
@@ -45,10 +46,10 @@ const Pricing = () => {
           transition={{ duration: 0.8 }}
           className="section-header"
         >
-          <span className="section-tag">Investment in Beauty</span>
-          <h2 className="section-title">Luxury Pricing</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto mt-4">
-            Choose your experience. Each package is designed to deliver exceptional results.
+          <span className="section-tag">Starting Points</span>
+          <h2 className="section-title">Service Guides</h2>
+          <p className="section-copy">
+            Transparent starting points for common appointment types. Final timing and pricing are confirmed after consultation.
           </p>
           <div className="section-divider mt-6" />
         </motion.div>
@@ -60,7 +61,7 @@ const Pricing = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.12, ease: [0.25, 0.4, 0.25, 1] }}
-              whileHover={{ y: -10 }}
+              whileHover={{ y: -4 }}
               className={`glass-card text-center relative flex flex-col ${
                 plan.popular ? 'border-gold border-2 shadow-xl shadow-gold/10' : ''
               }`}
@@ -68,7 +69,7 @@ const Pricing = () => {
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
                   <div className="gold-gradient text-luxury-black px-6 py-1 rounded-full text-xs font-bold tracking-wider shadow-lg">
-                    MOST POPULAR
+                    MOST REQUESTED
                   </div>
                 </div>
               )}
@@ -78,7 +79,7 @@ const Pricing = () => {
                 <h3 className="text-2xl font-display mb-4">{plan.name}</h3>
                 <div className="text-4xl sm:text-5xl font-bold text-gold mb-2">
                   {plan.price}
-                  <span className="text-sm text-gray-400 font-body ml-1">/service</span>
+                  <span className="text-sm text-gray-400 font-body ml-1">starting</span>
                 </div>
               </div>
 
@@ -99,13 +100,13 @@ const Pricing = () => {
               {/* CTA */}
               <button
                 onClick={scrollToBooking}
-                className={`w-full py-3.5 rounded-full font-semibold transition-all duration-300 ${
+                className={`w-full min-h-12 py-3.5 rounded-full font-semibold transition-all duration-300 ease-out ${
                   plan.popular
-                    ? 'gold-gradient text-luxury-black hover:shadow-lg hover:shadow-gold/30'
+                    ? 'gold-gradient text-luxury-black hover:shadow-lg hover:shadow-gold/20'
                     : 'border-2 border-gold text-gold hover:bg-gold/10'
                 }`}
               >
-                Select {plan.name}
+                Reserve {plan.name}
               </button>
             </motion.div>
           ))}

@@ -2,35 +2,36 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 
 const testimonials = [
   {
     name: 'Victoria Hamilton',
-    role: 'Fashion Executive',
+    role: 'Regular color client',
     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=80',
-    text: 'The most exquisite salon experience I have ever had. The attention to detail and artistry is unmatched. Every visit feels like a personal red carpet treatment.',
-    rating: 5
+    text: 'I came in after a difficult color experience elsewhere. They slowed the process down, explained what was realistic, and my hair finally feels like mine again.',
+    rating: 5,
   },
   {
     name: 'James Whitmore',
-    role: 'Entrepreneur',
+    role: 'Monthly grooming client',
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&q=80',
-    text: 'World-class service from start to finish. The ambiance, the team, the results — absolutely flawless. This is what true luxury feels like.',
-    rating: 5
+    text: 'What keeps me coming back is the consistency. The cut is sharp without looking overdone, and the room has a calmness that makes the hour feel useful.',
+    rating: 5,
   },
   {
     name: 'Charlotte Chen',
-    role: 'Bridal Client',
+    role: 'Ceremony client',
     image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80',
-    text: 'They made my wedding day absolutely perfect. I felt like a queen. From the trial to the big day, the LUXE team exceeded every expectation.',
-    rating: 5
+    text: 'For my ceremony, I wanted to still look like myself. The trial was thoughtful, the timing was clear, and on the day I felt composed instead of fussed over.',
+    rating: 5,
   },
   {
     name: 'Amara Osei',
-    role: 'TV Producer',
+    role: 'Production client',
     image: 'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=150&q=80',
-    text: 'I travel internationally for work and LUXE is the only salon I trust. Their consistency, professionalism, and artistry are world-class.',
-    rating: 5
+    text: 'My schedule changes constantly, but they always keep the service grounded. The finish reads beautifully on camera and still feels natural in person.',
+    rating: 5,
   },
 ]
 
@@ -47,7 +48,7 @@ const Testimonials = () => {
   const goTo = (idx: number) => setCurrent(idx)
 
   return (
-    <section className="py-16 md:py-24 px-4 sm:px-6 bg-gradient-luxury relative overflow-hidden">
+    <section className="section-padding bg-gradient-luxury relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] sm:w-[600px] sm:h-[600px] bg-gold/5 rounded-full blur-[80px] sm:blur-[120px]" />
 
@@ -60,7 +61,7 @@ const Testimonials = () => {
           className="section-header"
         >
           <span className="section-tag">Client Stories</span>
-          <h2 className="section-title">Luxury Experiences</h2>
+          <h2 className="section-title">What Clients Notice</h2>
           <div className="section-divider" />
         </motion.div>
 
@@ -84,9 +85,12 @@ const Testimonials = () => {
 
               <div className="flex justify-center mb-6">
                 <div className="relative">
-                  <img
+                  <Image
                     src={testimonials[current].image}
                     alt={testimonials[current].name}
+                    width={80}
+                    height={80}
+                    sizes="80px"
                     className="w-20 h-20 rounded-full object-cover border-2 border-gold"
                   />
                   <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-gold rounded-full flex items-center justify-center">
@@ -97,16 +101,17 @@ const Testimonials = () => {
                 </div>
               </div>
 
-              <div className="flex justify-center gap-1 mb-6">
-                {[...Array(5)].map((_, i) => (
+              <div className="flex justify-center gap-1 mb-6" aria-label={`${testimonials[current].rating} out of 5 stars`}>
+                {[...Array(testimonials[current].rating)].map((_, i) => (
                   <motion.span
                     key={i}
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: i * 0.1 }}
                     className="text-gold text-xl"
+                    aria-hidden="true"
                   >
-                    ★
+                    &#9733;
                   </motion.span>
                 ))}
               </div>
@@ -122,11 +127,13 @@ const Testimonials = () => {
 
           {/* Navigation Dots */}
           <div className="flex justify-center gap-3 mt-10">
-            {testimonials.map((_, idx) => (
+            {testimonials.map((testimonial, idx) => (
               <button
-                key={idx}
+                key={testimonial.name}
                 onClick={() => goTo(idx)}
-                className={`transition-all duration-500 rounded-full ${
+                aria-label={`Show testimonial from ${testimonial.name}`}
+                aria-pressed={idx === current}
+                className={`transition-all duration-300 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${
                   idx === current
                     ? 'w-10 h-2 bg-gold'
                     : 'w-2 h-2 bg-gray-600 hover:bg-gray-500'
@@ -143,7 +150,7 @@ const Testimonials = () => {
             viewport={{ once: true }}
             className="flex flex-wrap justify-center gap-8 mt-12 pt-8 border-t border-white/5"
           >
-            {['5-Star Service', '10+ Years', 'Award Winning', 'Premium Brands'].map((indicator) => (
+            {['Consultation-led', 'Established 2015', 'Senior-led services', 'Selected product partners'].map((indicator) => (
               <div key={indicator} className="flex items-center gap-2 text-gray-500 text-sm">
                 <svg className="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />

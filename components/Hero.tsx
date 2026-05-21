@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import gsap from 'gsap'
-import HeroScene from './HeroScene'
+import { getScrollBehavior } from '@/lib/scroll'
 
 const seededPercent = (index: number, salt: number) => {
   const value = Math.sin(index * 12.9898 + salt * 78.233) * 43758.5453
@@ -19,66 +18,41 @@ const heroParticles = Array.from({ length: 20 }, (_, i) => ({
 
 const Hero = () => {
   const heroRef = useRef<HTMLElement>(null)
-  const textRef = useRef<HTMLDivElement>(null)
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const [showParticles, setShowParticles] = useState(false)
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
   })
 
-  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.04])
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 200])
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 80])
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
+    const mediaQuery = window.matchMedia('(min-width: 768px) and (pointer: fine)')
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const canUseAmbientMotion = mediaQuery.matches && !reducedMotionQuery.matches
 
-      tl.fromTo('.hero-subtitle',
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 1 }
-      )
-      .fromTo('.hero-title-line',
-        { y: 200, rotate: 5 },
-        { y: 0, rotate: 0, duration: 1.2, stagger: 0.15 },
-        '-=0.5'
-      )
-      .fromTo('.hero-desc',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8 },
-        '-=0.6'
-      )
-      .fromTo('.hero-cta',
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 },
-        '-=0.4'
-      )
-      .fromTo('.hero-scroll',
-        { opacity: 0 },
-        { opacity: 1, duration: 0.8 },
-        '-=0.2'
-      )
-    }, heroRef)
-
-    return () => ctx.revert()
-  }, [])
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
-      })
+    if (!canUseAmbientMotion) {
+      return
     }
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
+
+    const revealParticles = () => setShowParticles(true)
+
+    if ('requestIdleCallback' in window) {
+      const idleId = window.requestIdleCallback(revealParticles, { timeout: 1200 })
+      return () => window.cancelIdleCallback(idleId)
+    }
+
+    const timer = globalThis.setTimeout(revealParticles, 700)
+    return () => globalThis.clearTimeout(timer)
   }, [])
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId)
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' })
+      section.scrollIntoView({ behavior: getScrollBehavior() })
     }
   }
 
@@ -93,7 +67,10 @@ const Hero = () => {
         style={{ scale: heroScale, opacity: heroOpacity, y: heroY }}
         className="absolute inset-0 w-full h-full"
       >
-        <HeroScene />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(212,175,55,0.16),transparent_34%),linear-gradient(135deg,#15110a_0%,#0A0A0A_46%,#111111_100%)]" />
+        <div className="absolute inset-0 opacity-[0.18] [background-image:linear-gradient(rgba(245,230,184,0.14)_1px,transparent_1px),linear-gradient(90deg,rgba(245,230,184,0.1)_1px,transparent_1px)] [background-size:72px_72px]" />
+        <div className="absolute left-1/2 top-[18%] h-48 w-48 -translate-x-1/2 rounded-full border border-gold/20 sm:h-72 sm:w-72" />
+        <div className="absolute left-1/2 top-[18%] h-28 w-28 -translate-x-1/2 rounded-full border border-gold/10 sm:h-44 sm:w-44" />
       </motion.div>
 
       {/* Cinematic Overlays */}
@@ -102,12 +79,11 @@ const Hero = () => {
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/60 to-transparent z-[1]" />
 
       {/* Ambient Light Effects */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[800px] sm:h-[800px] bg-gold/5 rounded-full blur-[80px] sm:blur-[120px] z-[1]" />
-      <div className="absolute bottom-0 right-0 w-[280px] h-[280px] sm:w-[600px] sm:h-[600px] bg-gold/3 rounded-full blur-[70px] sm:blur-[100px] z-[1]" />
+      <div className="absolute top-1/4 left-1/2 z-[1] h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/5 blur-[56px] sm:h-[560px] sm:w-[560px] sm:blur-[84px]" />
 
       {/* Floating Particles */}
-      <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
-        {heroParticles.map((particle, i) => (
+      <div className="pointer-events-none absolute inset-0 z-[1] hidden overflow-hidden motion-safe:sm:block">
+        {showParticles && heroParticles.map((particle, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-gold/30 rounded-full"
@@ -131,59 +107,77 @@ const Hero = () => {
 
       {/* Main Content */}
       <motion.div
-        style={{ x: mousePos.x, y: mousePos.y }}
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
         className="relative z-10 text-center px-4 sm:px-6 max-w-7xl mx-auto"
       >
-        <motion.div className="mb-6">
-          <span className="hero-subtitle inline-block text-gold text-xs sm:text-sm tracking-[0.24em] sm:tracking-[0.4em] uppercase font-body">
-            Welcome to Excellence
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="mb-5 sm:mb-6"
+        >
+          <span className="inline-block text-gold text-xs sm:text-sm tracking-[0.22em] sm:tracking-[0.34em] uppercase font-body">
+            Salon and Spa Atelier
           </span>
         </motion.div>
 
-        <div ref={textRef} className="overflow-hidden mb-6">
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[1.08]">
-            <div className="hero-title-line overflow-hidden">
-              <span className="inline-block text-white">Redefine Beauty.</span>
-            </div>
-            <div className="hero-title-line overflow-hidden">
-              <span className="inline-block gold-gradient-text">Experience Luxury.</span>
-            </div>
-          </h1>
-        </div>
+        <motion.h1
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mb-6 text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[1.08]"
+        >
+          <span className="block text-white">Beauty, considered</span>
+          <span className="block gold-gradient-text">with quiet precision.</span>
+        </motion.h1>
 
-        <p className="hero-desc text-gray-300 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 sm:mb-12 font-body leading-relaxed">
-          Where artistry meets elegance. Experience world-class beauty treatments
-          in an atmosphere of pure sophistication.
-        </p>
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.35 }}
+          className="text-gray-300 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 sm:mb-10 font-body leading-relaxed"
+        >
+          Hair, skin, grooming, and occasion beauty shaped around the person in
+          the chair, with time for conversation, craft, and a measured sense of ease.
+        </motion.p>
 
-        <div className="hero-cta flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.48 }}
+          className="flex flex-col sm:flex-row gap-3 sm:gap-5 justify-center"
+        >
           <button
             onClick={() => scrollToSection('booking')}
-            className="button-primary group flex items-center justify-center gap-2"
+            className="button-primary group flex min-h-12 items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
           >
-            <span>Book Appointment</span>
+            <span>Reserve a Visit</span>
             <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </button>
           <button
             onClick={() => scrollToSection('services')}
-            className="button-secondary group flex items-center justify-center gap-2"
+            className="button-secondary group flex min-h-12 items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
           >
-            <span>Explore Services</span>
+            <span>View Services</span>
             <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-        </div>
+        </motion.div>
       </motion.div>
 
       {/* Scroll Indicator */}
-      <motion.div
+      <motion.button
+        type="button"
+        aria-label="Scroll to about section"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
-        className="hero-scroll absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2 z-10 cursor-pointer"
+        className="hero-scroll absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2 z-10 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
         onClick={() => scrollToSection('about')}
       >
         <motion.div
@@ -200,7 +194,7 @@ const Hero = () => {
             />
           </div>
         </motion.div>
-      </motion.div>
+      </motion.button>
     </section>
   )
 }

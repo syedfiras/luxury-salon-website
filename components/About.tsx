@@ -2,12 +2,13 @@
 
 import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 const stats = [
-  { value: '10+', label: 'Years of Excellence' },
-  { value: '15K+', label: 'Happy Clients' },
-  { value: '50+', label: 'Awards Won' },
-  { value: '98%', label: 'Satisfaction Rate' },
+  { value: '2015', label: 'Studio Established' },
+  { value: '12', label: 'Artists and Therapists' },
+  { value: '40 min', label: 'Reserved Consultation' },
+  { value: '1:1', label: 'Personal Appointment Flow' },
 ]
 
 const About = () => {
@@ -17,7 +18,7 @@ const About = () => {
   })
 
   return (
-    <section id="about" className="py-16 md:py-24 px-4 sm:px-6 bg-gradient-luxury relative overflow-hidden">
+    <section id="about" className="section-padding bg-gradient-luxury relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-gold/5 rounded-full blur-[100px]" />
       <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-gold/3 rounded-full blur-[80px]" />
@@ -31,11 +32,11 @@ const About = () => {
           className="section-header"
         >
           <span className="section-tag">Our Story</span>
-          <h2 className="section-title">Where Art Meets Beauty</h2>
+          <h2 className="section-title">A Studio Built for Attention</h2>
           <div className="section-divider" />
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-10 lg:gap-12 items-center">
           {/* Left - Story Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -48,18 +49,17 @@ const About = () => {
                 <span className="text-gold text-sm tracking-wider uppercase">Since 2015</span>
               </div>
 
-              <h3 className="text-2xl md:text-3xl font-display mb-4 text-gold">The LUXE Experience</h3>
+              <h3 className="text-2xl md:text-3xl font-display mb-4 text-gold">The LUXE Way</h3>
 
               <p className="text-gray-300 leading-relaxed mb-6">
-                Founded in the heart of New York City, <span className="text-gold">LUXE Studio</span> was born 
-                from a vision to redefine luxury beauty. Our award-winning team of master artists combines 
-                technical precision with artistic vision to create transformative experiences that transcend 
-                the ordinary.
+                Founded in New York, <span className="text-gold">LUXE Studio</span> is a small salon and spa atelier
+                shaped around considered appointments. We begin with listening, then build each service with
+                proportion, texture, skin tone, lifestyle, and maintenance in mind.
               </p>
 
               <p className="text-gray-400 leading-relaxed mb-8 text-sm italic">
-                &ldquo;Every client who walks through our doors deserves nothing less than a masterpiece. 
-                We don&apos;t just style hair — we craft confidence, elegance, and timeless beauty.&rdquo;
+                &ldquo;Our work is at its best when it looks effortless a week later. The aim is not to
+                transform someone into someone else, but to make them feel more settled in themselves.&rdquo;
               </p>
 
               {/* Values */}
@@ -71,8 +71,8 @@ const About = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white">Premium Products</h4>
-                    <p className="text-sm text-gray-400">Only the finest luxury brands from around the world</p>
+                    <h4 className="font-semibold text-white">Product Discipline</h4>
+                    <p className="text-sm text-gray-400">Care formulas are chosen for hair history, skin needs, and finish</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4 group">
@@ -82,8 +82,8 @@ const About = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white">Master Stylists</h4>
-                    <p className="text-sm text-gray-400">Internationally trained and award-winning artists</p>
+                    <h4 className="font-semibold text-white">Experienced Hands</h4>
+                    <p className="text-sm text-gray-400">Senior artists with specialist training and a consultation-first approach</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4 group">
@@ -93,8 +93,8 @@ const About = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white">Luxury Atmosphere</h4>
-                    <p className="text-sm text-gray-400">A serene sanctuary designed for pure indulgence</p>
+                    <h4 className="font-semibold text-white">Unhurried Setting</h4>
+                    <p className="text-sm text-gray-400">Private pacing, soft service, and enough time to feel looked after</p>
                   </div>
                 </div>
               </div>
@@ -109,12 +109,16 @@ const About = () => {
             className="relative"
           >
             {/* Main Image */}
-            <div className="glassmorphism rounded-2xl overflow-hidden relative group">
-              <img
-                src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80"
-                alt="Luxury Salon Interior"
-                className="w-full h-[340px] sm:h-[420px] md:h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
-              />
+            <div className="glassmorphism rounded-xl overflow-hidden relative group">
+              <div className="relative aspect-[4/5] min-h-[340px] sm:min-h-[420px] md:min-h-[500px]">
+                <Image
+                  src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80"
+                  alt="Calm salon interior with styling chairs and warm light"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover premium-media"
+                />
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-luxury-black/80 via-transparent to-transparent" />
 
               {/* Quote Overlay */}
@@ -122,13 +126,13 @@ const About = () => {
                 <div className="flex items-start gap-3">
                   <span className="text-4xl text-gold leading-none">&ldquo;</span>
                   <p className="text-white/90 text-sm italic leading-relaxed">
-                    Where every visit is a masterpiece, and every client is a muse.
+                    Quiet appointments, careful hands, and results that feel lived-in.
                   </p>
                 </div>
               </div>
 
               {/* Decorative Border */}
-              <div className="absolute inset-0 border border-white/5 rounded-2xl pointer-events-none" />
+              <div className="absolute inset-0 border border-white/5 rounded-xl pointer-events-none" />
             </div>
 
             {/* Stats Grid */}
@@ -141,7 +145,7 @@ const About = () => {
                   transition={{ duration: 0.5, delay: 0.6 + idx * 0.1 }}
                   className="glassmorphism rounded-xl p-4 text-center group hover:border-gold/30 transition-all duration-300"
                 >
-                  <div className="text-2xl md:text-3xl font-display font-bold text-gold mb-1 group-hover:scale-110 transition-transform duration-300">
+                  <div className="text-2xl md:text-3xl font-display font-bold text-gold mb-1 group-hover:scale-[1.04] transition-transform duration-300 ease-out">
                     {stat.value}
                   </div>
                   <div className="text-xs text-gray-400 tracking-wider uppercase">{stat.label}</div>

@@ -1,15 +1,16 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { getScrollBehavior } from '@/lib/scroll'
 
 const ContactLocation = () => {
   const handleBooking = () => {
     const section = document.getElementById('booking')
-    if (section) section.scrollIntoView({ behavior: 'smooth' })
+    if (section) section.scrollIntoView({ behavior: getScrollBehavior() })
   }
 
   return (
-    <section id="contact" className="py-16 md:py-24 px-4 sm:px-6 bg-luxury-black relative overflow-hidden">
+    <section id="contact" className="section-padding bg-luxury-black relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-1/4 right-0 w-72 h-72 bg-gold/5 rounded-full blur-[80px]" />
       <div className="absolute bottom-1/4 left-0 w-48 h-48 bg-gold/3 rounded-full blur-[60px]" />
@@ -23,11 +24,11 @@ const ContactLocation = () => {
           className="section-header"
         >
           <span className="section-tag">Visit Us</span>
-          <h2 className="section-title">Our Sanctuary</h2>
+          <h2 className="section-title">Find the Studio</h2>
           <div className="section-divider" />
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-10 lg:gap-12">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -35,7 +36,7 @@ const ContactLocation = () => {
             viewport={{ once: true }}
             className="glass-card md:p-10"
           >
-            <h3 className="text-2xl font-display mb-6 text-gold">Location & Hours</h3>
+            <h3 className="text-2xl font-display mb-6 text-gold">Location and Hours</h3>
 
             <div className="space-y-6">
               <div className="flex items-start gap-4 group">
@@ -98,7 +99,7 @@ const ContactLocation = () => {
               onClick={handleBooking}
               className="button-primary w-full mt-8"
             >
-              Book Your Visit
+              Reserve a Visit
             </button>
           </motion.div>
 
@@ -107,20 +108,21 @@ const ContactLocation = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="rounded-2xl overflow-hidden h-80 md:h-96 relative group"
+            className="rounded-xl overflow-hidden h-80 md:h-96 relative group"
           >
             <iframe
+              title="Map to LUXE Studio on Fifth Avenue"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.966215614455!2d-74.00448488459497!3d40.75513057932724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6d3c2b9%3A0x3f0b5b8b5b8b5b8b!2sFifth%20Avenue!5e0!3m2!1sen!2sus!4v1699999999999!5m2!1sen!2sus"
               width="100%"
               height="100%"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
-              className="grayscale hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+              className="grayscale hover:grayscale-0 transition-all duration-500 group-hover:scale-[1.02]"
             />
 
             {/* Map Overlay */}
-            <div className="absolute inset-0 border border-white/5 rounded-2xl pointer-events-none" />
+            <div className="absolute inset-0 border border-white/5 rounded-xl pointer-events-none" />
           </motion.div>
         </div>
       </div>

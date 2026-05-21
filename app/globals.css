@@ -11,6 +11,21 @@
     color: white;
     overflow-x: hidden;
   }
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid #D4AF37;
+    outline-offset: 4px;
+  }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
   }
@@ -35,13 +50,13 @@
 
 @layer components {
   .glassmorphism {
-    backdrop-filter: blur(20px);
-    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.035);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 14px 28px -18px rgba(0, 0, 0, 0.45);
   }
   .glass-card {
-    @apply glassmorphism rounded-2xl p-5 sm:p-6 transition-all duration-500;
+    @apply glassmorphism rounded-xl p-5 sm:p-6 transition-all duration-300;
   }
   .gold-gradient {
     background: linear-gradient(135deg, #D4AF37 0%, #F5E6B8 50%, #D4AF37 100%);
@@ -59,7 +74,7 @@
     color: transparent;
   }
   .premium-button {
-    @apply px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-semibold transition-all duration-500 transform hover:scale-105 active:scale-95 relative overflow-hidden;
+    @apply min-h-12 px-6 sm:px-8 py-3.5 rounded-full font-semibold transition-all duration-300 ease-out active:scale-[0.98] relative overflow-hidden;
   }
   .button-primary {
     @apply premium-button text-black;
@@ -67,21 +82,21 @@
     background-size: 200% 100%;
   }
   .button-primary:hover {
-    animation: shimmer 1.5s linear infinite;
-    box-shadow: 0 10px 15px -3px rgba(212, 175, 55, 0.3), 0 4px 6px -4px rgba(212, 175, 55, 0.3);
+    background-position: 100% 0;
+    box-shadow: 0 10px 20px -12px rgba(212, 175, 55, 0.55);
   }
   .button-secondary {
-    @apply premium-button border-2 border-luxury-gold text-luxury-gold hover:bg-luxury-gold hover:bg-opacity-10;
+    @apply premium-button border border-luxury-gold/70 text-luxury-gold hover:bg-luxury-gold hover:bg-opacity-10;
   }
   .section-header {
-    @apply text-center mb-10 md:mb-16;
+    @apply text-center mb-10 md:mb-14 lg:mb-16;
   }
   .section-tag {
-    @apply text-luxury-gold text-xs sm:text-sm tracking-[0.22em] sm:tracking-[0.3em] uppercase;
+    @apply text-luxury-gold text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.28em] uppercase;
     font-family: 'Inter', sans-serif;
   }
   .section-title {
-    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-3 md:mt-4 mb-4 md:mb-6 leading-tight;
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-3 md:mt-4 mb-4 md:mb-5 leading-[1.08];
     font-family: 'Playfair Display', serif;
   }
   .section-divider {
@@ -98,6 +113,29 @@
     background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
     background-size: 200% 100%;
     animation: shimmer 2s linear infinite;
+  }
+  .section-padding {
+    @apply py-14 sm:py-16 md:py-24 lg:py-28 px-4 sm:px-6;
+  }
+  .section-copy {
+    @apply text-gray-400 max-w-2xl mx-auto mt-4 leading-7;
+  }
+  .premium-hover {
+    @apply transition-transform duration-300 ease-out motion-safe:hover:-translate-y-1;
+  }
+  .premium-media {
+    @apply transition-transform duration-500 ease-out group-hover:scale-[1.03];
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

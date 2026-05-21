@@ -1,11 +1,12 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { getScrollBehavior } from '@/lib/scroll'
 
 const Footer = () => {
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId)
-    if (section) section.scrollIntoView({ behavior: 'smooth' })
+    if (section) section.scrollIntoView({ behavior: getScrollBehavior() })
   }
 
   return (
@@ -30,25 +31,8 @@ const Footer = () => {
               <span className="text-white"> STUDIO</span>
             </h3>
             <p className="text-gray-500 text-sm leading-relaxed mb-6">
-              Where beauty meets artistry. Experience the pinnacle of luxury salon services in the heart of New York.
+              A New York salon and spa atelier for thoughtful hair, skin, grooming, and occasion beauty.
             </p>
-            <div className="flex space-x-4">
-              {[
-                { name: 'IG', href: '#', label: 'Instagram' },
-                { name: 'FB', href: '#', label: 'Facebook' },
-                { name: 'PT', href: '#', label: 'Pinterest' },
-                { name: 'YT', href: '#', label: 'YouTube' },
-              ].map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-500 hover:text-gold hover:border-gold transition-all duration-300 text-xs font-semibold"
-                >
-                  {social.name}
-                </a>
-              ))}
-            </div>
           </motion.div>
 
           {/* Quick Links */}
@@ -104,7 +88,7 @@ const Footer = () => {
           >
             <h4 className="text-gold font-semibold mb-6 uppercase tracking-wider text-sm">Newsletter</h4>
             <p className="text-gray-500 text-sm mb-4">
-              Subscribe for exclusive offers, beauty tips, and VIP invitations.
+              Occasional notes on appointments, seasonal care, and studio availability.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-0">
               <input
@@ -122,13 +106,8 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-600 text-xs">
-            &copy; {new Date().getFullYear()} LUXE Studio. All rights reserved. Experience the art of luxury beauty.
+            &copy; {new Date().getFullYear()} LUXE Studio. All rights reserved.
           </p>
-          <div className="flex gap-6 text-xs text-gray-600">
-            <a href="#" className="hover:text-gold transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-gold transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-gold transition-colors">Cookie Policy</a>
-          </div>
         </div>
       </div>
     </footer>

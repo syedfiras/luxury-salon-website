@@ -1,12 +1,14 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useId } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { getScrollBehavior } from '@/lib/scroll'
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
+  const menuId = useId()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,14 +29,31 @@ const Navbar = () => {
         }
       }
     }
-    window.addEventListener('scroll', handleScroll)
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : ''
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen])
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId)
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' })
+      section.scrollIntoView({ behavior: getScrollBehavior() })
       setIsOpen(false)
     }
   }
@@ -54,14 +73,16 @@ const Navbar = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+        aria-label="Primary navigation"
         className={`fixed w-full z-50 transition-all duration-500 ${
-          scrolled ? 'bg-luxury-black/80 backdrop-blur-xl py-3 shadow-xl shadow-black/20' : 'bg-transparent py-6'
+          scrolled ? 'bg-luxury-black/88 backdrop-blur-md py-3 border-b border-white/5' : 'bg-transparent py-5'
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 flex justify-between items-center">
           <button
             onClick={() => scrollToSection('home')}
-            className="text-xl sm:text-2xl font-display font-bold cursor-pointer relative group"
+            className="min-h-11 text-xl sm:text-2xl font-display font-bold cursor-pointer relative group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+            aria-label="LUXE Studio home"
           >
             <span className="text-gold">LUXE</span>
             <span className="text-white"> STUDIO</span>
@@ -69,12 +90,13 @@ const Navbar = () => {
           </button>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-10">
+          <div className="hidden md:flex items-center space-x-8 lg:space-x-10">
             {navLinks.map((link) => (
               <button
                 key={link.name}
                 onClick={() => scrollToSection(link.id)}
-                className={`relative text-sm uppercase tracking-wider transition-all duration-300 cursor-pointer py-1 ${
+                aria-current={activeSection === link.id ? 'page' : undefined}
+                className={`relative min-h-10 text-sm uppercase tracking-wider transition-colors duration-300 cursor-pointer px-1 py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${
                   activeSection === link.id
                     ? 'text-gold'
                     : 'text-white/70 hover:text-gold'
@@ -91,16 +113,19 @@ const Navbar = () => {
             ))}
             <button
               onClick={() => scrollToSection('booking')}
-              className="button-primary text-sm px-6 py-2.5"
+              className="button-primary text-sm px-6 py-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
             >
-              Book Now
+              Reserve
             </button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-white focus:outline-none relative w-8 h-8 flex items-center justify-center"
+            className="md:hidden text-white relative w-11 h-11 flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+            aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isOpen}
+            aria-controls={menuId}
           >
             <div className="flex flex-col gap-1.5">
               <motion.span
@@ -123,13 +148,14 @@ const Navbar = () => {
         <AnimatePresence>
           {isOpen && (
             <motion.div
+              id={menuId}
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="md:hidden overflow-hidden bg-luxury-black/95 backdrop-blur-xl border-t border-white/5"
+              className="md:hidden overflow-hidden bg-luxury-black/96 backdrop-blur-md border-t border-white/5"
             >
-              <div className="flex flex-col space-y-1 p-6">
+              <div className="flex flex-col space-y-1 px-4 py-5">
                 {navLinks.map((link, idx) => (
                   <motion.button
                     key={link.name}
@@ -137,7 +163,8 @@ const Navbar = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.05 }}
                     onClick={() => scrollToSection(link.id)}
-                    className={`text-left py-3 px-4 rounded-lg transition-all duration-300 ${
+                    aria-current={activeSection === link.id ? 'page' : undefined}
+                    className={`min-h-12 text-left py-3 px-4 rounded-lg transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold ${
                       activeSection === link.id
                         ? 'text-gold bg-gold/5 border-l-2 border-gold'
                         : 'text-white/70 hover:text-gold hover:bg-white/5'
@@ -151,9 +178,9 @@ const Navbar = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 }}
                   onClick={() => scrollToSection('booking')}
-                  className="button-primary text-center mt-4"
+                  className="button-primary text-center mt-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
                 >
-                  Book Now
+                  Reserve
                 </motion.button>
               </div>
             </motion.div>
