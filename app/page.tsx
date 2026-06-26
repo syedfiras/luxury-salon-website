@@ -1,38 +1,42 @@
+import SmoothScroll from '@/components/SmoothScroll'
+import CustomCursor from '@/components/CustomCursor'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import About from '@/components/About'
 import Services from '@/components/Services'
-import Experts from '@/components/Experts'
-import Booking from '@/components/Booking'
-import Testimonials from '@/components/Testimonials'
+import Materials from '@/components/Materials'
 import Gallery from '@/components/Gallery'
-import Pricing from '@/components/Pricing'
+import Testimonials from '@/components/Testimonials'
+import ClientJourney from '@/components/ClientJourney'
+import Experts from '@/components/Experts'
 import ContactLocation from '@/components/ContactLocation'
 import Footer from '@/components/Footer'
-import ScrollToTop from '@/components/ScrollToTop'
-import FloatingWhatsApp from '@/components/FloatingWhatsApp'
-import SmoothScroll from '@/components/SmoothScroll'
-import MotionPreferences from '@/components/MotionPreferences'
 
 export default function Home() {
   return (
-    <main className="overflow-x-hidden">
-      <MotionPreferences>
-        <SmoothScroll />
-        <Navbar />
-        <Hero />
-        <About />
-        <Services />
-        <Experts />
-        <Testimonials />
-        <Gallery />
-        <Pricing />
-        <Booking />
-        <ContactLocation />
-        <Footer />
-        <ScrollToTop />
-        <FloatingWhatsApp />
-      </MotionPreferences>
+    <main className="overflow-x-hidden bg-[#0B0B0B] text-[#F5F4F0]">
+      {/* Smooth scroll driver */}
+      <SmoothScroll />
+
+      {/* Lag-based custom cursor */}
+      <CustomCursor />
+
+      {/* Primary navigation */}
+      <Navbar />
+
+      {/* Section segments */}
+      <Hero />
+      <About />
+      <Services />
+      <Materials />
+      <Gallery />
+      <Testimonials />
+      <ClientJourney />
+      <Experts />
+      <ContactLocation />
+
+      {/* Footer info */}
+      <Footer />
     </main>
   )
 }

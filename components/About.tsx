@@ -1,161 +1,145 @@
 'use client'
 
-import { useInView } from 'react-intersection-observer'
-import { motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { gsap } from 'gsap'
 import Image from 'next/image'
 
-const stats = [
-  { value: '2015', label: 'Studio Established' },
-  { value: '12', label: 'Artists and Therapists' },
-  { value: '40 min', label: 'Reserved Consultation' },
-  { value: '1:1', label: 'Personal Appointment Flow' },
-]
+export default function About() {
+  const containerRef = useRef<HTMLElement>(null)
+  const isContainerInView = useInView(containerRef, { once: true, amount: 0.15 })
+  const statsRef = useRef<HTMLDivElement>(null)
 
-const About = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  })
+  useEffect(() => {
+    if (!isContainerInView) return
+
+    // GSAP Stats counter logic
+    const statsElements = statsRef.current?.querySelectorAll('.stat-val')
+    statsElements?.forEach((el) => {
+      const targetStr = el.getAttribute('data-target') || '0'
+      const targetVal = parseFloat(targetStr)
+      if (isNaN(targetVal)) return
+
+      const progress = { val: 0 }
+      gsap.to(progress, {
+        val: targetVal,
+        duration: 2.2,
+        ease: 'power3.out',
+        onUpdate: () => {
+          if (targetStr.includes('min')) {
+            el.textContent = `${Math.floor(progress.val)} min`
+          } else if (targetStr.includes(':')) {
+            el.textContent = '1:1'
+          } else {
+            el.textContent = Math.floor(progress.val).toString()
+          }
+        }
+      })
+    })
+  }, [isContainerInView])
 
   return (
-    <section id="about" className="section-padding bg-atelier-black relative overflow-hidden">
-      <div className="ambient-boundary" />
-      <div className="ambient-floor" />
+    <section
+      ref={containerRef}
+      id="about"
+      className="relative min-h-screen bg-[#0B0B0B] py-28 md:py-40 px-6 lg:px-16 overflow-hidden border-t border-white/5"
+    >
+      {/* Structural layout thin grid lines */}
+      <div className="absolute inset-0 pointer-events-none opacity-20 flex justify-between z-0">
+        <div className="w-[1px] h-full bg-white/5 ml-[12%]" />
+        <div className="w-[1px] h-full bg-white/5 ml-[50%]" />
+        <div className="w-[1px] h-full bg-white/5 mr-[12%]" />
+      </div>
 
-      <div className="container mx-auto max-w-6xl relative z-10">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="section-header"
-        >
-          <span className="section-tag">Our Story</span>
-          <h2 className="section-title">A Studio Built for Attention</h2>
-          <div className="section-divider" />
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-10 lg:gap-12 items-center">
-          {/* Left - Story Content */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center relative z-10">
+        {/* Column 1: Cinematic Portrait Image & Abstract Architectural CAD Drawing Overlay */}
+        <div className="lg:col-span-6 relative">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={isContainerInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
+            className="relative aspect-[3/4] w-full overflow-hidden border border-white/5 img-mask"
           >
-            <div className="glass-card md:p-10">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-[2px] gold-gradient" />
-                <span className="text-gold text-sm tracking-wider uppercase">Since 2015</span>
-              </div>
-
-              <h3 className="text-2xl md:text-3xl font-display mb-4 text-gold">The LUXE Way</h3>
-
-              <p className="text-gray-300 leading-relaxed mb-6">
-                Founded in New York, <span className="text-gold">LUXE Studio</span> is a small salon and spa atelier
-                shaped around considered appointments. We begin with listening, then build each service with
-                proportion, texture, skin tone, lifestyle, and maintenance in mind.
-              </p>
-
-              <p className="text-gray-400 leading-relaxed mb-8 text-sm italic">
-                &ldquo;Our work is at its best when it looks effortless a week later. The aim is not to
-                transform someone into someone else, but to make them feel more settled in themselves.&rdquo;
-              </p>
-
-              {/* Values */}
-              <div className="space-y-5">
-                <div className="flex items-start gap-4 group">
-                  <div className="w-12 h-12 rounded-full gold-gradient flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <svg className="w-5 h-5 text-luxury-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-white">Product Discipline</h4>
-                    <p className="text-sm text-gray-400">Care formulas are chosen for hair history, skin needs, and finish</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4 group">
-                  <div className="w-12 h-12 rounded-full gold-gradient flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <svg className="w-5 h-5 text-luxury-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-white">Experienced Hands</h4>
-                    <p className="text-sm text-gray-400">Senior artists with specialist training and a consultation-first approach</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4 group">
-                  <div className="w-12 h-12 rounded-full gold-gradient flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <svg className="w-5 h-5 text-luxury-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-white">Unhurried Setting</h4>
-                    <p className="text-sm text-gray-400">Private pacing, soft service, and enough time to feel looked after</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Image
+              src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=90"
+              alt="Luxury minimal salon workspace with clean design lines, marble textures and custom wood panels"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover transition-transform duration-1000 hover:scale-105"
+            />
+            {/* Cinematic shadows */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B]/80 via-transparent to-transparent pointer-events-none" />
           </motion.div>
 
-          {/* Right - Image & Stats */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="relative"
+          {/* Floating structural frame CAD lines representing master craftsmanship */}
+          <div className="absolute -bottom-8 -right-8 w-44 h-44 border border-[#B8925C]/20 pointer-events-none hidden md:block">
+            <div className="absolute top-0 left-0 w-3 h-px bg-[#B8925C]" />
+            <div className="absolute top-0 left-0 h-3 w-px bg-[#B8925C]" />
+            <div className="absolute bottom-0 right-0 w-3 h-px bg-[#B8925C]" />
+            <div className="absolute bottom-0 right-0 h-3 w-px bg-[#B8925C]" />
+          </div>
+        </div>
+
+        {/* Column 2: Editorial Philosophy & Milestone Timelines */}
+        <div className="lg:col-span-6 flex flex-col justify-center">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="section-label">Our Philosophy</span>
+            <span className="accent-line" />
+          </div>
+
+          <h2
+            style={{ fontFamily: "'Playfair Display', serif" }}
+            className="text-[#F5F4F0] text-3xl md:text-5xl leading-tight mb-8 font-light"
           >
-            {/* Main Image */}
-            <div className="glassmorphism rounded-xl overflow-hidden relative group">
-              <div className="relative aspect-[4/5] min-h-[340px] sm:min-h-[420px] md:min-h-[500px]">
-                <Image
-                  src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80"
-                  alt="Calm salon interior with styling chairs and warm light"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover premium-media"
-                />
+            Sculpting Space, Structure & Self.
+          </h2>
+
+          <div className="space-y-6 text-[#9E9E9E] font-light leading-relaxed text-sm md:text-base">
+            <p>
+              Founded in New York, <span className="text-[#B8925C] font-normal">LUXE Studio</span> operates as a private atelier for considered hair, skin, and grooming. We treat styling not as decoration, but as architecture. We examine the bone structure, listen to lifestyle rhythms, and refine detail by detail.
+            </p>
+            <p>
+              Our work is at its best when it looks effortless. We seek a measured sense of ease, creating custom care formulas tailored to your history. True luxury is unhurried.
+            </p>
+          </div>
+
+          {/* Luxury Full-Width Typography Blockquote */}
+          <blockquote className="mt-8 border-l-2 border-[#B8925C] pl-6 italic font-serif text-lg text-[#F5F4F0] leading-relaxed">
+            &ldquo;Details are not the design. Details define the lifestyle.&rdquo;
+          </blockquote>
+
+          {/* Animated Statistics */}
+          <div
+            ref={statsRef}
+            className="grid grid-cols-2 sm:grid-cols-4 gap-8 mt-12 pt-8 border-t border-white/[0.08]"
+          >
+            <div>
+              <div className="text-2xl md:text-3xl font-light text-[#B8925C] mb-1 font-serif">
+                <span className="stat-val" data-target="2015">0</span>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-luxury-black/80 via-transparent to-transparent" />
-
-              {/* Quote Overlay */}
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="flex items-start gap-3">
-                  <span className="text-4xl text-gold leading-none">&ldquo;</span>
-                  <p className="text-white/90 text-sm italic leading-relaxed">
-                    Quiet appointments, careful hands, and results that feel lived-in.
-                  </p>
-                </div>
+              <p className="text-[9px] uppercase tracking-widest text-[#9E9E9E] font-sans">Established</p>
+            </div>
+            <div>
+              <div className="text-2xl md:text-3xl font-light text-[#B8925C] mb-1 font-serif">
+                <span className="stat-val" data-target="12">0</span>
               </div>
-
-              {/* Decorative Border */}
-              <div className="absolute inset-0 border border-white/5 rounded-xl pointer-events-none" />
+              <p className="text-[9px] uppercase tracking-widest text-[#9E9E9E] font-sans">Artists</p>
             </div>
-
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-4 mt-6">
-              {stats.map((stat, idx) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.6 + idx * 0.1 }}
-                  className="glassmorphism rounded-xl p-4 text-center group hover:border-gold/30 transition-all duration-300"
-                >
-                  <div className="text-2xl md:text-3xl font-display font-bold text-gold mb-1 group-hover:scale-[1.04] transition-transform duration-300 ease-out">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs text-gray-400 tracking-wider uppercase">{stat.label}</div>
-                </motion.div>
-              ))}
+            <div>
+              <div className="text-2xl md:text-3xl font-light text-[#B8925C] mb-1 font-serif">
+                <span className="stat-val" data-target="40">0</span>
+              </div>
+              <p className="text-[9px] uppercase tracking-widest text-[#9E9E9E] font-sans">Min Consultation</p>
             </div>
-          </motion.div>
+            <div>
+              <div className="text-2xl md:text-3xl font-light text-[#B8925C] mb-1 font-serif">
+                <span className="stat-val" data-target="1">1:1</span>
+              </div>
+              <p className="text-[9px] uppercase tracking-widest text-[#9E9E9E] font-sans">Personal Flow</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   )
 }
-
-export default About

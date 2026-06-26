@@ -8,23 +8,34 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        primary: '#0B0B0B',
+        secondary: '#151515',
+        surface: '#1C1C1C',
+        'text-primary': '#F5F4F0',
+        'text-muted': '#9E9E9E',
+        accent: '#B8925C',
+        'accent-light': '#D4AD7A',
+        border: 'rgba(255,255,255,0.08)',
+        // Keeping fallback/compat names if any
         luxury: {
-          black: '#0A0A0A',
-          dark: '#111111',
-          gold: '#D4AF37',
-          goldLight: '#F5E6B8',
-          beige: '#F5F0E6',
+          black: '#0B0B0B',
+          dark: '#151515',
+          gold: '#B8925C',
+          goldLight: '#D4AD7A',
+          beige: '#FAF7F2',
           cream: '#FAF7F2',
-          gray: '#2A2A2A',
+          gray: '#1C1C1C',
         }
       },
       fontFamily: {
-        display: ['Playfair Display', 'serif'],
-        body: ['Inter', 'sans-serif'],
+        serif: ['var(--font-serif)', 'Cormorant Garamond', 'Georgia', 'serif'],
+        display: ['var(--font-display)', 'Playfair Display', 'Georgia', 'serif'],
+        body: ['var(--font-body)', 'Inter', 'sans-serif'],
+        sans: ['var(--font-body)', 'Inter', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-luxury': 'linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%)',
+        'gradient-luxury': 'linear-gradient(135deg, #0B0B0B 0%, #151515 100%)',
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
@@ -37,8 +48,8 @@ module.exports = {
           '50%': { transform: 'translateY(-20px)' },
         },
         glow: {
-          '0%': { textShadow: '0 0 10px rgba(212, 175, 55, 0.5)' },
-          '100%': { textShadow: '0 0 20px rgba(212, 175, 55, 0.8)' },
+          '0%': { textShadow: '0 0 10px rgba(184, 146, 92, 0.4)' },
+          '100%': { textShadow: '0 0 20px rgba(184, 146, 92, 0.7)' },
         }
       }
     },

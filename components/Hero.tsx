@@ -1,109 +1,118 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { getScrollBehavior } from '@/lib/scroll'
+import { useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
+import { gsap } from 'gsap'
+import Image from 'next/image'
 
 const Hero = () => {
-  const heroRef = useRef<HTMLElement>(null)
+  const containerRef = useRef<HTMLElement>(null)
+  const imageOverlayRef = useRef<HTMLDivElement>(null)
+  const headingRef = useRef<HTMLHeadingElement>(null)
+  const subheadingRef = useRef<HTMLParagraphElement>(null)
+  const indicatorRef = useRef<HTMLDivElement>(null)
 
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  })
+  useEffect(() => {
+    // Reveal text letter by letter (split-text simulation using spans)
+    const heading = headingRef.current
+    if (heading) {
+      const text = heading.innerText
+      heading.innerHTML = text
+        .split(' ')
+        .map(word => `<span class="inline-block overflow-hidden"><span class="reveal-word inline-block translate-y-full transition-transform duration-1000 ease-out">${word}&nbsp;</span></span>`)
+        .join('')
+      
+      const words = heading.querySelectorAll('.reveal-word')
+      gsap.to(words, {
+        translateY: 0,
+        stagger: 0.08,
+        duration: 1.3,
+        ease: 'power4.out',
+        delay: 0.4
+      })
+    }
 
-  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.04])
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 80])
+    // Subheading fade-in
+    gsap.fromTo(subheadingRef.current,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 1.5, ease: 'power3.out', delay: 1.0 }
+    )
 
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId)
-    if (section) {
-      section.scrollIntoView({ behavior: getScrollBehavior() })
+    // Scroll indicator animation
+    gsap.fromTo(indicatorRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 1, delay: 1.6 }
+    )
+
+    // Cinematic zoom on hero background overlay
+    gsap.fromTo(imageOverlayRef.current,
+      { scale: 1.12, opacity: 0 },
+      { scale: 1, opacity: 0.55, duration: 2.8, ease: 'power3.out' }
+    )
+  }, [])
+
+  const scrollDown = () => {
+    const aboutSection = document.getElementById('about')
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
   return (
     <section
+      ref={containerRef}
       id="home"
-      ref={heroRef}
-      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden"
+      className="relative min-h-[100svh] w-full flex items-center justify-center bg-[#0B0B0B] overflow-hidden"
     >
-      <motion.div
-        style={{ scale: heroScale, opacity: heroOpacity, y: heroY }}
-        className="absolute inset-0 w-full h-full"
+      {/* Background cinematic media with film grain */}
+      <div ref={imageOverlayRef} className="absolute inset-0 z-0 opacity-0">
+        <Image
+          src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=2000"
+          alt="Professional makeup artist applying luxury cosmetics"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover grayscale-[20%]"
+        />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-[#0B0B0B]/75 mix-blend-multiply" />
+        {/* Radial wash to center light */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,#0B0B0B_100%)] pointer-events-none opacity-90" />
+      </div>
+
+      {/* Hero Text Content */}
+      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto flex flex-col items-center select-none">
+        <h1
+          ref={headingRef}
+          style={{ fontFamily: "'Playfair Display', serif" }}
+          className="text-[#F5F4F0] text-5xl md:text-8xl lg:text-[10rem] tracking-tight leading-[1.05] mb-8 font-light"
+        >
+          The Art of Makeup.
+        </h1>
+        <p
+          ref={subheadingRef}
+          style={{ fontFamily: "'Inter', sans-serif" }}
+          className="text-[#9E9E9E] font-light text-xs md:text-sm max-w-xl leading-relaxed tracking-[0.24em] uppercase"
+        >
+          Bridal glam, editorial looks, and everyday elegance — crafted by artists who understand your unique beauty.
+        </p>
+      </div>
+
+      {/* Elegant scroll indicator */}
+      <div
+        ref={indicatorRef}
+        onClick={scrollDown}
+        className="absolute bottom-12 z-10 flex flex-col items-center gap-3.5 cursor-pointer opacity-0"
+        data-cursor
       >
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.58),rgba(0,0,0,0.08)_42%,rgba(0,0,0,0.52)),linear-gradient(180deg,#1b150f_0%,#0d0b09_44%,#080807_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(246,220,178,0.075)_0%,rgba(246,220,178,0.025)_22%,rgba(0,0,0,0)_46%,rgba(0,0,0,0.5)_100%)]" />
-      </motion.div>
+        <span className="text-[10px] tracking-[0.3em] uppercase text-[#B8925C] font-light">
+          Scroll to explore
+        </span>
+        <div className="scroll-line" />
+      </div>
 
-      <div className="absolute inset-0 z-[1] bg-[linear-gradient(180deg,rgba(0,0,0,0.48)_0%,rgba(0,0,0,0.1)_34%,rgba(0,0,0,0.72)_100%)]" />
-      <div className="absolute inset-0 z-[1] bg-[linear-gradient(90deg,rgba(0,0,0,0.36),transparent_28%,transparent_72%,rgba(0,0,0,0.42))]" />
-
-      {/* Main Content */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-        className="relative z-10 text-center px-4 sm:px-6 max-w-7xl mx-auto"
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="mb-5 sm:mb-6"
-        >
-          <span className="inline-block text-gold text-xs sm:text-sm tracking-[0.22em] sm:tracking-[0.34em] uppercase font-body">
-            Salon and Spa Atelier
-          </span>
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-6 text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[1.08]"
-        >
-          <span className="block text-white">Beauty, considered</span>
-          <span className="block gold-gradient-text">with quiet precision.</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.35 }}
-          className="text-gray-300 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 sm:mb-10 font-body leading-relaxed"
-        >
-          Hair, skin, grooming, and occasion beauty shaped around the person in
-          the chair, with time for conversation, craft, and a measured sense of ease.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.48 }}
-          className="flex flex-col sm:flex-row gap-3 sm:gap-5 justify-center"
-        >
-          <button
-            onClick={() => scrollToSection('booking')}
-            className="button-primary group flex min-h-12 items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
-          >
-            <span>Reserve a Visit</span>
-            <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </button>
-          <button
-            onClick={() => scrollToSection('services')}
-            className="button-secondary group flex min-h-12 items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
-          >
-            <span>View Services</span>
-            <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-        </motion.div>
-      </motion.div>
+      {/* Background grain element just for this section */}
+      <div className="film-grain" />
     </section>
   )
 }

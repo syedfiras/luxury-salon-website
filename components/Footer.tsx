@@ -1,117 +1,100 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { getScrollBehavior } from '@/lib/scroll'
 
-const Footer = () => {
+export default function Footer() {
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId)
-    if (section) section.scrollIntoView({ behavior: getScrollBehavior() })
+    if (section) section.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
-    <footer className="bg-luxury-dark border-t border-white/5 pt-12 sm:pt-16 pb-8 px-4 sm:px-6 relative overflow-hidden">
-      {/* Decorative Line */}
-      <div className="absolute top-0 left-0 right-0 h-[1px] gold-gradient opacity-30" />
-
-      <div className="container mx-auto max-w-7xl relative z-10">
-        <div className="grid md:grid-cols-4 gap-12 mb-12">
-          {/* Brand */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
+    <footer className="bg-[#0B0B0B] border-t border-white/5 py-20 px-6 lg:px-16 overflow-hidden">
+      <div className="max-w-7xl mx-auto flex flex-col justify-between h-full">
+        {/* Footer Top Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16 mb-20">
+          
+          {/* Column 1: Info */}
+          <div className="md:col-span-2 space-y-4">
             <h3
-              onClick={() => scrollToSection('home')}
-              className="text-2xl font-display mb-4 cursor-pointer"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              style={{ fontFamily: "'Cormorant Garamond', serif" }}
+              className="text-[#B8925C] text-3xl tracking-[0.16em] uppercase cursor-pointer w-fit"
+              data-cursor
             >
-              <span className="text-gold">LUXE</span>
-              <span className="text-white"> STUDIO</span>
+              LUXE STUDIO
             </h3>
-            <p className="text-gray-500 text-sm leading-relaxed mb-6">
-              A New York salon and spa atelier for thoughtful hair, skin, grooming, and occasion beauty.
+            <p className="text-[#9E9E9E] font-light text-xs max-w-sm leading-relaxed">
+              A private New York salon and spa atelier. Designing quiet spaces where architectural precision and sensory calm become one.
             </p>
-          </motion.div>
+          </div>
 
-          {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            <h4 className="text-gold font-semibold mb-6 uppercase tracking-wider text-sm">Quick Links</h4>
-            <ul className="space-y-3">
-              {['About', 'Services', 'Experts', 'Gallery', 'Contact'].map((item) => (
+          {/* Column 2: Navigation Links */}
+          <div className="space-y-4">
+            <span className="text-[10px] tracking-widest text-[#B8925C] uppercase block mb-1">Index</span>
+            <ul className="space-y-2 text-xs font-light">
+              {['About', 'Services', 'Gallery', 'Experts'].map((item) => (
                 <li key={item}>
                   <button
                     onClick={() => scrollToSection(item.toLowerCase())}
-                    className="text-gray-500 hover:text-gold transition-colors text-sm cursor-pointer"
+                    className="text-[#9E9E9E] hover:text-[#F5F4F0] transition-colors"
+                    data-cursor
                   >
                     {item}
                   </button>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          {/* Services */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <h4 className="text-gold font-semibold mb-6 uppercase tracking-wider text-sm">Services</h4>
-            <ul className="space-y-3">
-              {['Hair Styling', 'Hair Coloring', 'Facial Treatments', 'Makeup Artistry', 'Spa & Wellness'].map((item) => (
-                <li key={item}>
-                  <button
-                    onClick={() => scrollToSection('services')}
-                    className="text-gray-500 hover:text-gold transition-colors text-sm cursor-pointer"
-                  >
-                    {item}
-                  </button>
-                </li>
-              ))}
+          {/* Column 3: Socials */}
+          <div className="space-y-4">
+            <span className="text-[10px] tracking-widest text-[#B8925C] uppercase block mb-1">Connect</span>
+            <ul className="space-y-2 text-xs font-light">
+              <li>
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#9E9E9E] hover:text-[#F5F4F0] transition-colors"
+                  data-cursor
+                >
+                  Instagram
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://pinterest.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#9E9E9E] hover:text-[#F5F4F0] transition-colors"
+                  data-cursor
+                >
+                  Pinterest
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#9E9E9E] hover:text-[#F5F4F0] transition-colors"
+                  data-cursor
+                >
+                  LinkedIn
+                </a>
+              </li>
             </ul>
-          </motion.div>
+          </div>
 
-          {/* Newsletter */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <h4 className="text-gold font-semibold mb-6 uppercase tracking-wider text-sm">Newsletter</h4>
-            <p className="text-gray-500 text-sm mb-4">
-              Occasional notes on appointments, seasonal care, and studio availability.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-0">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 px-4 py-3 bg-luxury-black border border-white/10 rounded-lg sm:rounded-l-lg sm:rounded-r-none focus:border-gold focus:outline-none text-sm text-white placeholder-gray-500 transition-colors"
-              />
-              <button className="gold-gradient text-luxury-black px-5 py-3 rounded-lg sm:rounded-l-none sm:rounded-r-lg font-semibold text-sm hover:opacity-90 transition-opacity shrink-0">
-                Subscribe
-              </button>
-            </div>
-          </motion.div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-600 text-xs">
-            &copy; {new Date().getFullYear()} LUXE Studio. All rights reserved.
-          </p>
+        {/* Footer Bottom copyright details */}
+        <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] tracking-widest text-[#9E9E9E] uppercase font-light">
+          <p>© {new Date().getFullYear()} LUXE STUDIO. ALL RIGHTS RESERVED.</p>
+          <p>NEW YORK CITY</p>
         </div>
       </div>
     </footer>
   )
 }
-
-export default Footer
